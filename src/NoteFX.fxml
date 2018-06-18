@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="NoteFXController">
+  <bottom>
+    <ScrollBar />
+  </bottom>
+  <center>
+    <TextArea fx:id="textArea" prefWidth="200.0" wrapText="true" />
+  </center>
+  <right>
+    <ScrollBar orientation="VERTICAL" />
+  </right>
+  <top>
+    <MenuBar>
+      <menus>
+        <Menu mnemonicParsing="false" text="File" fx:id="file">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Open..." fx:id="open" />
+            <MenuItem mnemonicParsing="false" onAction="#onSave" text="Save" fx:id="save" />
+            <MenuItem mnemonicParsing="false" onAction="#selectItem" text="Exit" fx:id="exitFile" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Delete" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+  </top>
+</BorderPane>
