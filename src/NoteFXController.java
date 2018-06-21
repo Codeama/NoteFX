@@ -123,13 +123,12 @@ public class NoteFXController {
     }
     
     private void saveFile(File file){
-        try{
-            String content = textArea.getText();
-            FileWriter writer = new FileWriter(file);
+
+        String content = textArea.getText();
+        try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
-            writer.close();
         }
-        
+         
         catch(IOException ex){
             ex.getMessage();
         }
