@@ -7,14 +7,18 @@
 import java.awt.Desktop;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.Formatter;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.ResourceBundle;
@@ -49,10 +53,9 @@ public class NoteFXController {
     
     @FXML private MenuItem save;
     
-    @FXML private FileChooser fileChooser;
-    
     private Desktop desktop = Desktop.getDesktop();
     
+   
     @FXML public void selectItem(){
                 
         exitFile.setOnAction(event -> System.exit(0));
@@ -63,7 +66,7 @@ public class NoteFXController {
     @FXML
     public void onOpen(){
         open.setOnAction(event ->  { 
-            fileChooser = new FileChooser();
+            FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open File");
             fileChooser.getExtensionFilters().addAll(
                     new ExtensionFilter("Text Files", "*.txt"),
@@ -79,7 +82,18 @@ public class NoteFXController {
     @FXML
     public void onSave(){ 
                 save.setOnAction(event -> {
-                System.out.println(desktop.isDesktopSupported());
+                
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.setTitle("Save File");
+                
+                fileChooser.setSelectedExtensionFilter(
+                    new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
+                    //new ExtensionFilter("All Files", "*.*"));
+                    fileChooser.getExtensionFilters().addAll(
+                    new ExtensionFilter("Text Files", "*.txt"), new ExtensionFilter("All Files", "*.*"));
+                File file = fileChooser.showSaveDialog(new Stage());    
+                if(file != null)
+                    saveFile(file);
             
         });
         
@@ -89,21 +103,7 @@ public class NoteFXController {
     public void initialize(){
         
     }
-    //same job as openFile but with a Scanner
-    private String openFile2(File file){
-        StringBuilder str = new StringBuilder();
-        try(Scanner input = new Scanner(file);){
-            String line;
-            while(input.hasNext())
-                str.append(input.nextLine()).append("\n");
-            
-        } catch (FileNotFoundException ex) {
-            System.err.println("File not found");
-        }
-        return str.toString();
-    }
-    
-        
+           
     private String openFile(File file) {
         StringBuilder str = new StringBuilder();
         try (
@@ -116,10 +116,24 @@ public class NoteFXController {
             }
             
         } catch (IOException ex) {
-            ex.printStackTrace();
+            ex.getMessage();
         }
         return str.toString();
         
+    }
+    
+    private void saveFile(File file){
+        try{
+            String content = textArea.getText();
+            FileWriter writer = new FileWriter(file);
+            writer.write(content);
+            writer.close();
+        }
+        
+        catch(IOException ex){
+            ex.getMessage();
+        }
+       
     }
     
 }
