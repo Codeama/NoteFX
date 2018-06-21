@@ -88,8 +88,7 @@ public class NoteFXController {
                 
                 fileChooser.setSelectedExtensionFilter(
                     new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
-                    //new ExtensionFilter("All Files", "*.*"));
-                    fileChooser.getExtensionFilters().addAll(
+                fileChooser.getExtensionFilters().addAll(
                     new ExtensionFilter("Text Files", "*.txt"), new ExtensionFilter("All Files", "*.*"));
                 File file = fileChooser.showSaveDialog(new Stage());    
                 if(file != null)
