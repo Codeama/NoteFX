@@ -39,50 +39,23 @@ public class NoteFXController {
     @FXML private MenuItem save;
     
     private Desktop desktop = Desktop.getDesktop();
+    FileFX edit = new FileFX();
     
    
-    @FXML public void onExit(){
-        exitFile.setOnAction(event -> Platform.exit());
-        
-    }
-    
+   
     @FXML
     public void onOpen(){
         open.setOnAction(event ->  { 
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open File");
-            fileChooser.getExtensionFilters().addAll(
-                    new ExtensionFilter("Text Files", "*.txt"),
-                    new ExtensionFilter("All Files", "*.*"));
-            File file = fileChooser.showOpenDialog(new Stage());
-            
-            if(file != null)
-                textArea.setText(openFile(file));
+            edit.openSelectedFile(textArea);
         });
     }
-    
-    
+     
     @FXML
     public void onSave(){ 
         save.setOnAction(event -> {
                 
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save File");
-
-            fileChooser.setSelectedExtensionFilter(
-                new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
-            fileChooser.getExtensionFilters().addAll(
-                new ExtensionFilter("Text Files", "*.txt"), new ExtensionFilter("All Files", "*.*"));
-            File file = fileChooser.showSaveDialog(new Stage());    
-            if(file != null)
-                saveFile(file);
-            Stage changeTitle = (Stage)textArea.getScene().getWindow();
-            changeTitle.setTitle("");
+            edit.saveContent(textArea);
         });
-        
-    }
-    
-    private void changeWindowTitle(){
         
     }
     
@@ -90,38 +63,11 @@ public class NoteFXController {
     public void onSaveAs(){
         
     }
-        
-    private String openFile(File file) {
-        StringBuilder str = new StringBuilder();
-        try (
-            FileInputStream input = new FileInputStream(file);
-            BufferedReader inputStream = new BufferedReader(new InputStreamReader(input));){
-            String line;
-            
-            while((line = inputStream.readLine()) != null){
-                    str.append(line).append("\n");
-            }
-            
-        } catch (IOException ex) {
-            ex.getMessage();
-        }
-        return str.toString();
+    
+    @FXML public void onExit(){
+        exitFile.setOnAction(event -> edit.closeWindow());
         
     }
-    
-    private void saveFile(File file){
-
-        String content = textArea.getText();
-        try (FileWriter writer = new FileWriter(file)) {
-            writer.write(content);
-        }
-         
-        catch(IOException ex){
-            ex.getMessage();
-        }
-       
-    }
-    
     @FXML
     public void initialize(){
         
