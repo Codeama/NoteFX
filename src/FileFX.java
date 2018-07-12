@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javafx.application.Platform;
@@ -21,10 +22,7 @@ import javafx.stage.Stage;
  * @author Bukola Jimoh
  */
 public class FileFX {
-   public void closeWindow(){
-       Platform.exit();
-   }
-   
+      
    public void openSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open File");
@@ -54,5 +52,36 @@ public class FileFX {
         return str.toString();
         
     }
-    
+   
+   public void saveContent(TextInputControl output){
+       FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save File");
+
+            fileChooser.setSelectedExtensionFilter(
+                new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"), new FileChooser.ExtensionFilter("All Files", "*.*"));
+            File file = fileChooser.showSaveDialog(new Stage());    
+            if(file != null)
+                saveFile(file, output);
+            Stage changeTitle = (Stage)output.getScene().getWindow();
+            changeTitle.setTitle("");
+   }
+   
+    private void saveFile(File file, TextInputControl output){
+
+        String content = output.getText();
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write(content);
+        }
+         
+        catch(IOException ex){
+            ex.getMessage();
+        }
+       
+    }
+  
+   public void closeWindow(){
+       Platform.exit();
+   } 
 }
