@@ -5,39 +5,24 @@
  */
 
 import java.awt.Desktop;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.util.Formatter;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
 
 /**
  *
- * @author Bookie
+ * @author Bukola Jimoh
  */
 public class NoteFXController {
     
@@ -56,10 +41,8 @@ public class NoteFXController {
     private Desktop desktop = Desktop.getDesktop();
     
    
-    @FXML public void selectItem(){
-                
-        exitFile.setOnAction(event -> System.exit(0));
-        //exitFile.setOnAction(event -> Platform.exit());
+    @FXML public void onExit(){
+        exitFile.setOnAction(event -> Platform.exit());
         
     }
     
@@ -81,28 +64,33 @@ public class NoteFXController {
     
     @FXML
     public void onSave(){ 
-                save.setOnAction(event -> {
+        save.setOnAction(event -> {
                 
-                FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Save File");
-                
-                fileChooser.setSelectedExtensionFilter(
-                    new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
-                fileChooser.getExtensionFilters().addAll(
-                    new ExtensionFilter("Text Files", "*.txt"), new ExtensionFilter("All Files", "*.*"));
-                File file = fileChooser.showSaveDialog(new Stage());    
-                if(file != null)
-                    saveFile(file);
-            
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save File");
+
+            fileChooser.setSelectedExtensionFilter(
+                new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
+            fileChooser.getExtensionFilters().addAll(
+                new ExtensionFilter("Text Files", "*.txt"), new ExtensionFilter("All Files", "*.*"));
+            File file = fileChooser.showSaveDialog(new Stage());    
+            if(file != null)
+                saveFile(file);
+            Stage changeTitle = (Stage)textArea.getScene().getWindow();
+            changeTitle.setTitle("");
         });
         
     }
     
-    @FXML
-    public void initialize(){
+    private void changeWindowTitle(){
         
     }
-           
+    
+    @FXML
+    public void onSaveAs(){
+        
+    }
+        
     private String openFile(File file) {
         StringBuilder str = new StringBuilder();
         try (
@@ -134,4 +122,10 @@ public class NoteFXController {
        
     }
     
+    @FXML
+    public void initialize(){
+        
+    }
+    
+     
 }
