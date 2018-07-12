@@ -64,9 +64,8 @@ public class FileFX {
             File file = fileChooser.showSaveDialog(new Stage());    
             if(file != null)
                 saveFile(file, output);
-            Stage changeTitle = (Stage)output.getScene().getWindow();
-            changeTitle.setTitle("");
-   }
+            changeStageTitle(file, output);
+    }
    
     private void saveFile(File file, TextInputControl output){
 
@@ -74,12 +73,18 @@ public class FileFX {
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
         }
-         
+
         catch(IOException ex){
             ex.getMessage();
         }
-       
     }
+    
+    private void changeStageTitle(File file, TextInputControl currentTextArea){
+        Stage primaryStage = (Stage)currentTextArea.getScene().getWindow();
+        String title = file.getName() + " - NoteFX";
+        primaryStage.setTitle(title);
+    }
+    
   
    public void closeWindow(){
        Platform.exit();
