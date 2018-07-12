@@ -28,24 +28,18 @@ public class NoteFXController {
     
     @FXML private MenuItem save;
     
-    private Desktop desktop = Desktop.getDesktop();
-    FileMenu edit = new FileMenu();
+    FileMenu fileMenu = new FileMenu();
     
    
    
     @FXML
     public void onOpen(){
-        open.setOnAction(event ->  { 
-            edit.openSelectedFile(textArea);
-        });
+        open.setOnAction(event -> fileMenu.openSelectedFile(textArea));
     }
      
     @FXML
     public void onSave(){ 
-        save.setOnAction(event -> {
-                
-            edit.saveContent(textArea);
-        });
+        save.setOnAction(event -> fileMenu.saveContent(textArea));
         
     }
     
@@ -55,7 +49,7 @@ public class NoteFXController {
     }
     
     @FXML public void onExit(){
-        exitFile.setOnAction(event -> edit.closeWindow());
+        exitFile.setOnAction(event -> fileMenu.closeWindow());
         
     }
     @FXML
