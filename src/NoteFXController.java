@@ -39,7 +39,7 @@ public class NoteFXController {
     @FXML private MenuItem save;
     
     private Desktop desktop = Desktop.getDesktop();
-    FileFX edit = new FileFX();
+    FileMenu edit = new FileMenu();
     
    
    
