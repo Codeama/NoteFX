@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javafx.application.Platform;
-import javafx.scene.control.Control;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -31,9 +30,10 @@ public class FileMenu {
                     new FileChooser.ExtensionFilter("All Files", "*.*"));
             File file = fileChooser.showOpenDialog(new Stage());
             
-            if(file != null)
+            if(file != null){
                 output.setText(open(file));
-            changeStageTitle(file, output);
+                changeStageTitle(file, output);
+            }
    }
    
    private String open(File file) {
@@ -63,9 +63,10 @@ public class FileMenu {
             fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt"), new FileChooser.ExtensionFilter("All Files", "*.*"));
             File file = fileChooser.showSaveDialog(new Stage());    
-            if(file != null)
+            if(file != null){
                 saveFile(file, output);
-            changeStageTitle(file, output);
+                changeStageTitle(file, output);
+            }
     }
    
     private void saveFile(File file, TextInputControl output){
