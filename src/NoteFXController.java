@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-import java.awt.Desktop;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -33,25 +33,16 @@ public class NoteFXController {
    
    
     @FXML
-    public void onOpen(){
-        open.setOnAction(event -> fileMenu.openSelectedFile(textArea));
-    }
+    public void onOpen(){fileMenu.openSelectedFile(textArea);}
      
     @FXML
-    public void onSave(){ 
-        save.setOnAction(event -> fileMenu.saveContent(textArea));
-        
-    }
+    public void onSave(){fileMenu.saveContent(textArea);}
     
     @FXML
-    public void onSaveAs(){
-        
-    }
+    public void onSaveAs(){}
     
-    @FXML public void onExit(){
-        exitFile.setOnAction(event -> fileMenu.closeWindow());
-        
-    }
+    @FXML public void onExit(){fileMenu.closeWindow();}
+    
     @FXML
     public void initialize(){
         
