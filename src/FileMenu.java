@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javafx.application.Platform;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.FileChooser;
@@ -68,6 +71,15 @@ public class FileMenu {
                 changeStageTitle(file, output);
             }
     }
+   public void saveChanges(TextInputControl output){
+       Stage primaryStage = (Stage)output.getScene().getWindow();
+       String currentStageTitle = primaryStage.getTitle();
+       Path path = Paths.get(currentStageTitle);
+       if(Files.exists(path)){
+           File file = new File(path.toString());
+           saveFile(file, output);
+       }
+   }
    
     private void saveFile(File file, TextInputControl output){
 
