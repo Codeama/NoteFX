@@ -24,6 +24,8 @@ import javafx.stage.Stage;
  * @author Bukola Jimoh
  */
 public class FileMenu {
+    
+    String pathName = null;
       
    public void openSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
@@ -36,6 +38,9 @@ public class FileMenu {
             if(file != null){
                 output.setText(open(file));
                 changeStageTitle(file, output);
+                pathName = getFilePath(file);
+//                String fileName = getFilePath(file);
+//                System.out.println(fileName);
             }
    }
    
@@ -58,6 +63,11 @@ public class FileMenu {
     }
    
    public void saveContent(TextInputControl output){
+       if(pathName != null){
+           File file = new File(pathName);
+           saveFile(file, output);
+       }
+       else{
 
        FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save File");
@@ -71,8 +81,9 @@ public class FileMenu {
             if(file != null){
                 saveFile(file, output);
                 changeStageTitle(file, output);
+                pathName = getFilePath(file);
             }
-         //}
+         }
     }
    public void saveChanges(TextInputControl output){
 //       Stage primaryStage = (Stage)output.getScene().getWindow();
