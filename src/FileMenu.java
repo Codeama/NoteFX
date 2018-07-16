@@ -58,27 +58,46 @@ public class FileMenu {
     }
    
    public void saveContent(TextInputControl output){
+
        FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save File");
 
             fileChooser.setSelectedExtensionFilter(
                 new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
             fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"), new FileChooser.ExtensionFilter("All Files", "*.*"));
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"), 
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
             File file = fileChooser.showSaveDialog(new Stage());    
             if(file != null){
                 saveFile(file, output);
                 changeStageTitle(file, output);
             }
+         //}
     }
    public void saveChanges(TextInputControl output){
-       Stage primaryStage = (Stage)output.getScene().getWindow();
+//       Stage primaryStage = (Stage)output.getScene().getWindow();
+//       String currentStageTitle = primaryStage.getTitle();
+//       Path path = Paths.get(currentStageTitle);
+//       if(Files.exists(path)){
+//           File file = new File(path.toString());
+//           saveFile(file, output);
+//       }
+         File file = fileExists(output);
+         if(file != null)
+            saveFile(file, output);
+   }
+   
+   
+   public File fileExists(TextInputControl content){
+       File file = null;
+       Stage primaryStage = (Stage)content.getScene().getWindow();
        String currentStageTitle = primaryStage.getTitle();
        Path path = Paths.get(currentStageTitle);
-       if(Files.exists(path)){
-           File file = new File(path.toString());
-           saveFile(file, output);
-       }
+       if(Files.exists(path))
+           file = path.toFile();
+           //file = new File(path.toString());
+       
+       return file;
    }
    
     private void saveFile(File file, TextInputControl output){
@@ -99,6 +118,11 @@ public class FileMenu {
         primaryStage.setTitle(title);
     }
     
+    private String getFilePath(File file){
+        String filePath = file.getAbsolutePath();
+        
+        return filePath;
+    }
   
    public void closeWindow(){
        Platform.exit();
