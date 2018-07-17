@@ -36,12 +36,10 @@ public class NoteFXController {
     public void onOpen(){fileMenu.openSelectedFile(textArea);}
      
     @FXML
-    public void onSave(){
-        //fileMenu.fileExists(textArea);}
-        fileMenu.saveContent(textArea);}
+    public void onSave(){fileMenu.saveContent(textArea);}
             
     @FXML
-    public void onSaveAs(){}
+    public void onSaveAs(){fileMenu.saveAsNewFile(textArea);}
     
     @FXML public void onExit(){fileMenu.closeWindow();}
     
