@@ -83,18 +83,7 @@ public class FileMenu {
             }
          }
     }
-  
-   public File fileExists(TextInputControl content){
-       File file = null;
-       Stage primaryStage = (Stage)content.getScene().getWindow();
-       String currentStageTitle = primaryStage.getTitle();
-       Path path = Paths.get(currentStageTitle);
-       if(Files.exists(path))
-           file = path.toFile();
-           //file = new File(path.toString());
-       
-       return file;
-   }
+   
    
     private void saveFile(File file, TextInputControl output){
 
