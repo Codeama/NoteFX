@@ -38,10 +38,8 @@ public class FileMenu {
             if(file != null){
                 output.setText(open(file));
                 changeStageTitle(file, output);
-                pathName = getFilePath(file);
-//                String fileName = getFilePath(file);
-//                System.out.println(fileName);
-            }
+                pathName = file.getAbsolutePath();
+          }
    }
    
    private String open(File file) {
@@ -81,24 +79,11 @@ public class FileMenu {
             if(file != null){
                 saveFile(file, output);
                 changeStageTitle(file, output);
-                pathName = getFilePath(file);
+                pathName = file.getAbsolutePath();
             }
          }
     }
-   public void saveChanges(TextInputControl output){
-//       Stage primaryStage = (Stage)output.getScene().getWindow();
-//       String currentStageTitle = primaryStage.getTitle();
-//       Path path = Paths.get(currentStageTitle);
-//       if(Files.exists(path)){
-//           File file = new File(path.toString());
-//           saveFile(file, output);
-//       }
-         File file = fileExists(output);
-         if(file != null)
-            saveFile(file, output);
-   }
-   
-   
+  
    public File fileExists(TextInputControl content){
        File file = null;
        Stage primaryStage = (Stage)content.getScene().getWindow();
@@ -129,12 +114,7 @@ public class FileMenu {
         primaryStage.setTitle(title);
     }
     
-    private String getFilePath(File file){
-        String filePath = file.getAbsolutePath();
-        
-        return filePath;
-    }
-  
+    
    public void closeWindow(){
        Platform.exit();
    } 
