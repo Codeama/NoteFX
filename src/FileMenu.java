@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  */
 public class FileMenu {
     
-    String pathName = null;
+    private String pathName = null; //check: do I always need a constructor?
       
    public void openSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
