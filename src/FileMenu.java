@@ -84,6 +84,23 @@ public class FileMenu {
          }
     }
    
+   public void saveAsNewFile(TextInputControl output){
+       FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save File");
+
+            fileChooser.setSelectedExtensionFilter(
+                new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"), 
+                    new FileChooser.ExtensionFilter("All Files", "*.*"));
+        File file = fileChooser.showSaveDialog(new Stage());    
+        if(file != null){
+            saveFile(file, output);
+            changeStageTitle(file, output);
+            pathName = file.getAbsolutePath();
+        }
+   }
+   
    
     private void saveFile(File file, TextInputControl output){
 
