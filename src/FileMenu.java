@@ -5,7 +5,12 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Optional;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -22,7 +27,7 @@ import javafx.stage.Stage;
  */
 public class FileMenu {
     
-    private String pathName = null; //check: do I always need a constructor?
+    private String pathName = null; 
       
    public void openSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
@@ -115,6 +120,19 @@ public class FileMenu {
         Stage primaryStage = (Stage)currentTextArea.getScene().getWindow();
         String title = file.getName() + " - NoteFX";
         primaryStage.setTitle(title);
+    }
+    
+    private void showConfirmation(TextInputControl output){
+        ButtonType saveButton;
+        saveButton = new ButtonType("Save", ButtonBar.ButtonData.APPLY);
+        ButtonType dontSaveButton = new ButtonType("Don't Save");
+        ButtonType cancelButton = new ButtonType("Cancel");
+        Alert alert = new Alert(AlertType.CONFIRMATION, "Do you want to save changes to...",
+            saveButton, dontSaveButton, cancelButton);
+        alert.setTitle("Notepad");
+        alert.showAndWait()
+                .filter(response -> response == ButtonType.APPLY)
+                .ifPresent(response -> saveContent(output));
     }
     
     
