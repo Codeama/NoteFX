@@ -123,16 +123,21 @@ public class FileMenu {
     }
     
     private void showConfirmation(TextInputControl output){
-        ButtonType saveButton;
-        saveButton = new ButtonType("Save", ButtonBar.ButtonData.APPLY);
+        ButtonType saveButton = new ButtonType("Save");
         ButtonType dontSaveButton = new ButtonType("Don't Save");
         ButtonType cancelButton = new ButtonType("Cancel");
         Alert alert = new Alert(AlertType.CONFIRMATION, "Do you want to save changes to...",
             saveButton, dontSaveButton, cancelButton);
         alert.setTitle("Notepad");
-        alert.showAndWait()
-                .filter(response -> response == ButtonType.APPLY)
-                .ifPresent(response -> saveContent(output));
+        alert.showAndWait().ifPresent(response -> {
+            if(response == saveButton)
+                saveContent(output);
+            if(response == dontSaveButton)
+                closeWindow();
+            if(response == cancelButton)
+                alert.close();
+                
+        });
     }
     
     
