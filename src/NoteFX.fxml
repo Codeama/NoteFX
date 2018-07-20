@@ -11,7 +11,7 @@
     <ScrollBar />
   </bottom>
   <center>
-    <TextArea fx:id="textArea" prefWidth="200.0" wrapText="true" />
+    <TextArea fx:id="textArea" onKeyTyped="#onExit" prefWidth="200.0" wrapText="true" />
   </center>
   <right>
     <ScrollBar orientation="VERTICAL" />
