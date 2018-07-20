@@ -27,7 +27,8 @@ import javafx.stage.Stage;
  */
 public class FileMenu {
     
-    private String pathName = null; 
+    private String pathName = null;
+    private String fileName = "Untitled";
       
    public void openSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
@@ -103,7 +104,11 @@ public class FileMenu {
         }
    }
    
+   public void saveChangesBeforeClose(TextInputControl output){
+              
+   }
    
+     
     private void saveFile(File file, TextInputControl output){
 
         String content = output.getText();
@@ -118,15 +123,18 @@ public class FileMenu {
     
     private void changeStageTitle(File file, TextInputControl currentTextArea){
         Stage primaryStage = (Stage)currentTextArea.getScene().getWindow();
-        String title = file.getName() + " - NoteFX";
+        fileName = file.getName();
+        String title = fileName + " - NoteFX";
         primaryStage.setTitle(title);
     }
     
-    private void showConfirmation(TextInputControl output){
+    public void showConfirmation(TextInputControl output){
         ButtonType saveButton = new ButtonType("Save");
         ButtonType dontSaveButton = new ButtonType("Don't Save");
         ButtonType cancelButton = new ButtonType("Cancel");
-        Alert alert = new Alert(AlertType.CONFIRMATION, "Do you want to save changes to...",
+        String messageAlert = "Do you want to save changes to ";
+        String message = messageAlert + "'"+fileName+"'";
+        Alert alert = new Alert(AlertType.CONFIRMATION, message,
             saveButton, dontSaveButton, cancelButton);
         alert.setTitle("Notepad");
         alert.showAndWait().ifPresent(response -> {
@@ -135,7 +143,7 @@ public class FileMenu {
             if(response == dontSaveButton)
                 closeWindow();
             if(response == cancelButton)
-                alert.close();
+                alert.close();//this should close only the alert; needs correcting
                 
         });
     }
