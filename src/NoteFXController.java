@@ -5,6 +5,7 @@
  */
 
 
+import java.awt.event.KeyEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -30,6 +31,9 @@ public class NoteFXController {
     
     FileMenu fileMenu = new FileMenu();
     
+    boolean keyPressed = false;
+    
+    
    
    
     @FXML
@@ -37,14 +41,17 @@ public class NoteFXController {
      
     @FXML
     public void onSave(){fileMenu.saveContent(textArea);}
-            
+                
     @FXML
     public void onSaveAs(){fileMenu.saveAsNewFile(textArea);}
     
+       
     @FXML public void onExit(){fileMenu.closeWindow();}
+    
     
     @FXML
     public void initialize(){
+        
         
     }
     
