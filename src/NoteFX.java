@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Bookie
+ * @author Bukola Jimoh
  */
 public class NoteFX extends Application {
     
