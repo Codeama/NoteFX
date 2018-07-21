@@ -1,2 +1,2 @@
 # NoteFX
-A JavaFX text editor
+A JavaFX text editor (in progress)
