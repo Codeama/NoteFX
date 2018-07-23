@@ -31,10 +31,16 @@ public class NoteFXController {
     
     FileMenu fileMenu = new FileMenu();
     
-    boolean keyPressed = false;
+    boolean textEdited;
     
-    
-   
+    @FXML
+    public void isKeyPressed(){
+        if(textArea.getText()!= null)
+            textEdited= true;
+        else
+            textEdited= false;
+        
+    }
    
     @FXML
     public void onOpen(){fileMenu.openSelectedFile(textArea);}
@@ -46,7 +52,10 @@ public class NoteFXController {
     public void onSaveAs(){fileMenu.saveAsNewFile(textArea);}
     
        
-    @FXML public void onExit(){fileMenu.closeWindow();}
+    @FXML public void onExit(){
+        if (textEdited==true) 
+            fileMenu.showConfirmation(textArea);
+        fileMenu.closeWindow();}
     
     
     @FXML
