@@ -40,7 +40,7 @@ public class NoteFXController {
     }
    
     @FXML
-    public void onOpen(){fileMenu.openSelectedFile(textArea);}
+    public void onOpen(){fileMenu.readSelectedFile(textArea);}
      
     @FXML
     public void onSave(){fileMenu.saveContent(textArea);}
