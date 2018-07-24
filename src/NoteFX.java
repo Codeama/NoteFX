@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 /**
@@ -18,12 +19,17 @@ public class NoteFX extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("NoteFX.fxml"));
+        FXMLLoader fxml = new FXMLLoader(getClass().getResource("NoteFX.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("NoteFX.fxml"));
+        Parent root = fxml.load();
+        MenuItem exit = (MenuItem) fxml.getNamespace().get("exitFile");
         
         Scene scene = new Scene(root);
         stage.setTitle("Untitled - NoteFX");
         stage.setScene(scene);
         stage.show();
+        
+        stage.setOnCloseRequest(e -> exit.fire());
     }
 
     /**
