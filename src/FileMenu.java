@@ -33,7 +33,7 @@ public class FileMenu {
     private String fileName = "Untitled";
     
       
-   public void openSelectedFile(TextInputControl output){
+   public void readSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open File");
             fileChooser.getExtensionFilters().addAll(
@@ -42,13 +42,13 @@ public class FileMenu {
             File file = fileChooser.showOpenDialog(new Stage());
             
             if(file != null){
-                output.setText(open(file));
+                output.setText(readFile(file));
                 changeStageTitle(file, output);
                 pathName = file.getAbsolutePath();
           }
    }
    
-   private String open(File file) {
+   private String readFile(File file) {
         StringBuilder str = new StringBuilder();
         try (
             FileInputStream input = new FileInputStream(file);
@@ -72,16 +72,7 @@ public class FileMenu {
            saveFile(file, output);
        }
        else{
-
-       FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save File");
-
-            fileChooser.setSelectedExtensionFilter(
-                new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
-            fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"), 
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
-            File file = fileChooser.showSaveDialog(new Stage());    
+            File file = openDirectory();
             if(file != null){
                 saveFile(file, output);
                 changeStageTitle(file, output);
@@ -91,6 +82,15 @@ public class FileMenu {
     }
    
    public void saveAsNewFile(TextInputControl output){
+       File file = openDirectory();   
+        if(file != null){
+            saveFile(file, output);
+            changeStageTitle(file, output);
+            pathName = file.getAbsolutePath();
+        }
+   }
+   
+   private File openDirectory(){
        FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save File");
 
@@ -99,12 +99,9 @@ public class FileMenu {
             fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Text Files", "*.txt"), 
                     new FileChooser.ExtensionFilter("All Files", "*.*"));
-        File file = fileChooser.showSaveDialog(new Stage());    
-        if(file != null){
-            saveFile(file, output);
-            changeStageTitle(file, output);
-            pathName = file.getAbsolutePath();
-        }
+        File file = fileChooser.showSaveDialog(new Stage());
+        
+        return file;
    }
    
       
@@ -139,16 +136,26 @@ public class FileMenu {
         alert.setTitle("Notepad");
         alert.showAndWait().ifPresent(response -> {
             if(response == save){
-                saveContent(output); //if (file == null) alert.close(); else {closeWindow();]
-                closeWindow();
-            }
-             if(response == dontSave)
+                 if(pathName != null){
+                    File file = new File(pathName);
+                    saveFile(file, output); //save and close owner window/stage
+                    closeWindow();
+                    }
+                 else{
+                     File file = openDirectory();
+                        if(file != null){
+                        saveFile(file, output);
+                        closeWindow();
+                        }
+                        else alert.close();//go back to owner window
+                    }
+            if(response == dontSave)
                 closeWindow();
             if(response == cancel)
                 alert.close();
                 
                 
-        });
+        }});
     }
     
     
