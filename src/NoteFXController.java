@@ -35,10 +35,7 @@ public class NoteFXController {
     
     @FXML
     public void isKeyPressed(){
-        if(textArea.getText()!= null)
-            textEdited= true;
-        else
-            textEdited= false;
+        textEdited = textArea.getText()!= null;
         
     }
    
@@ -55,7 +52,9 @@ public class NoteFXController {
     @FXML public void onExit(){
         if (textEdited==true) 
             fileMenu.showConfirmation(textArea);
-        fileMenu.closeWindow();}
+        else
+            fileMenu.closeWindow();
+    }
     
     
     @FXML
