@@ -9,7 +9,9 @@ import java.util.Optional;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputControl;
 import javafx.stage.FileChooser;
@@ -29,6 +31,7 @@ public class FileMenu {
     
     private String pathName = null;
     private String fileName = "Untitled";
+    
       
    public void openSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
@@ -104,11 +107,7 @@ public class FileMenu {
         }
    }
    
-   public void saveChangesBeforeClose(TextInputControl output){
-              
-   }
-   
-     
+      
     private void saveFile(File file, TextInputControl output){
 
         String content = output.getText();
@@ -129,21 +128,25 @@ public class FileMenu {
     }
     
     public void showConfirmation(TextInputControl output){
-        ButtonType saveButton = new ButtonType("Save");
-        ButtonType dontSaveButton = new ButtonType("Don't Save");
-        ButtonType cancelButton = new ButtonType("Cancel");
+        ButtonType save = new ButtonType("Save");
+        ButtonType dontSave = new ButtonType("Don't Save");
+        ButtonType cancel = new ButtonType("Cancel");
         String messageAlert = "Do you want to save changes to ";
         String message = messageAlert + "'"+fileName+"'";
         Alert alert = new Alert(AlertType.CONFIRMATION, message,
-            saveButton, dontSaveButton, cancelButton);
+            save, dontSave, cancel);
+        alert.setHeaderText(null);
         alert.setTitle("Notepad");
         alert.showAndWait().ifPresent(response -> {
-            if(response == saveButton)
-                saveContent(output);
-            if(response == dontSaveButton)
+            if(response == save){
+                saveContent(output); //if (file == null) alert.close(); else {closeWindow();]
                 closeWindow();
-            if(response == cancelButton)
-                alert.close();//this should close only the alert; needs correcting
+            }
+             if(response == dontSave)
+                closeWindow();
+            if(response == cancel)
+                alert.close();
+                
                 
         });
     }
