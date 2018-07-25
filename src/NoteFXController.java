@@ -34,7 +34,7 @@ public class NoteFXController {
     boolean textEdited;
     
     @FXML
-    public void isKeyPressed(){
+    public void keyPressed(){
         textEdited = textArea.getText()!= null;
         
     }
