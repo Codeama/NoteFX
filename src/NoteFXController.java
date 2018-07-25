@@ -40,23 +40,23 @@ public class NoteFXController {
     }
    
     @FXML
-    public void onOpen(){fileMenu.readSelectedFile(textArea);}
+    public void open(){fileMenu.readSelectedFile(textArea);}
      
     @FXML
-    public void onSave(){fileMenu.saveContent(textArea);}
+    public void save(){fileMenu.saveContent(textArea);}
                 
     @FXML
-    public void onSaveAs(){fileMenu.saveAsNewFile(textArea);}
+    public void saveAs(){fileMenu.saveAsNewFile(textArea);}
     
        
-    @FXML public void onExit(){
+    @FXML public void exit(){
         if (textEdited==true) 
             fileMenu.showConfirmation(textArea);
         else
             fileMenu.closeWindow();
     }
     
-    @FXML public void onPrint(){fileMenu.printText(textArea);}
+    @FXML public void print(){fileMenu.printText(textArea);}
     
     
     @FXML
