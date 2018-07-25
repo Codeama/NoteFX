@@ -67,26 +67,26 @@ public class FileMenu {
         
     }
    
-   public void saveContent(TextInputControl output){
+   public void saveContent(TextInputControl content){
        if(pathName != null){
            File file = new File(pathName);
-           saveFile(file, output);
+           saveFile(file, content);
        }
        else{
             File file = openDirectory();
             if(file != null){
-                saveFile(file, output);
-                changeStageTitle(file, output);
+                saveFile(file, content);
+                changeStageTitle(file, content);
                 pathName = file.getAbsolutePath();
             }
          }
     }
    
-   public void saveAsNewFile(TextInputControl output){
+   public void saveAsNewFile(TextInputControl content){
        File file = openDirectory();   
         if(file != null){
-            saveFile(file, output);
-            changeStageTitle(file, output);
+            saveFile(file, content);
+            changeStageTitle(file, content);
             pathName = file.getAbsolutePath();
         }
    }
@@ -106,9 +106,9 @@ public class FileMenu {
    }
    
       
-    private void saveFile(File file, TextInputControl output){
+    private void saveFile(File file, TextInputControl text){
 
-        String content = output.getText();
+        String content = text.getText();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
         }
@@ -125,7 +125,7 @@ public class FileMenu {
         primaryStage.setTitle(title);
     }
     
-    public void showConfirmation(TextInputControl output){
+    public void showConfirmation(TextInputControl text){
         ButtonType save = new ButtonType("Save");
         ButtonType dontSave = new ButtonType("Don't Save");
         ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
@@ -139,13 +139,13 @@ public class FileMenu {
             if(response == save){
                  if(pathName != null){
                     File file = new File(pathName);
-                    saveFile(file, output); //save and close owner window/stage
+                    saveFile(file, text); //save and close owner window/stage
                     closeWindow();
                     }
                  else{
                     File file = openDirectory();
                     if(file != null){
-                        saveFile(file, output);
+                        saveFile(file, text);
                         closeWindow();
                         }
                     else alert.close();//go back to owner window
@@ -158,6 +158,22 @@ public class FileMenu {
                 
                 
         }   );
+    }
+    
+    public void showDialog(TextInputControl output){
+        ButtonType save = new ButtonType("Save");
+        ButtonType dontSave = new ButtonType("Don't Save");
+        ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        String messageAlert = "Do you want to save changes to ";
+        String message = messageAlert + "'"+fileName+"'";
+        Alert alert = new Alert(AlertType.CONFIRMATION, message,
+            save, dontSave, cancel);
+        alert.setHeaderText(null);
+        alert.setTitle("Notepad");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get()==ButtonType.CANCEL){
+            alert.close();
+        }
     }
     
     public void printText(TextInputControl text){
