@@ -56,6 +56,8 @@ public class NoteFXController {
             fileMenu.closeWindow();
     }
     
+    @FXML public void onPrint(){fileMenu.printText(textArea);}
+    
     
     @FXML
     public void initialize(){
