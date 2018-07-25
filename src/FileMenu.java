@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Optional;
 import javafx.application.Platform;
+import javafx.print.PrinterJob;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -127,7 +128,7 @@ public class FileMenu {
     public void showConfirmation(TextInputControl output){
         ButtonType save = new ButtonType("Save");
         ButtonType dontSave = new ButtonType("Don't Save");
-        ButtonType cancel = new ButtonType("Cancel");
+        ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
         String messageAlert = "Do you want to save changes to ";
         String message = messageAlert + "'"+fileName+"'";
         Alert alert = new Alert(AlertType.CONFIRMATION, message,
@@ -142,20 +143,31 @@ public class FileMenu {
                     closeWindow();
                     }
                  else{
-                     File file = openDirectory();
-                        if(file != null){
+                    File file = openDirectory();
+                    if(file != null){
                         saveFile(file, output);
                         closeWindow();
                         }
-                        else alert.close();//go back to owner window
+                    else alert.close();//go back to owner window
                     }
+            }
             if(response == dontSave)
                 closeWindow();
-            if(response == cancel)
-                alert.close();
+            if (response == cancel)
+                System.out.println("Can't close me!"); //this closes owner window but it's not the intended outcome. method showConfirmation may need re-doing
                 
                 
-        }   });
+        }   );
+    }
+    
+    public void printText(TextInputControl text){
+        PrinterJob job = PrinterJob.createPrinterJob();
+        if(job != null){
+            boolean success = job.printPage(text);
+            if(success){
+                job.endJob();
+            }
+        }
     }
     
     
