@@ -11,7 +11,7 @@
     <ScrollBar />
   </bottom>
   <center>
-    <TextArea fx:id="textArea" onKeyPressed="#isKeyPressed" prefWidth="200.0" wrapText="true" />
+    <TextArea fx:id="textArea" onKeyPressed="#keyPressed" prefWidth="200.0" wrapText="true" />
   </center>
   <right>
     <ScrollBar orientation="VERTICAL" />
@@ -26,7 +26,7 @@
             <MenuItem fx:id="save" mnemonicParsing="false" onAction="#onSave" text="Save" />
             <MenuItem mnemonicParsing="false" onAction="#onSaveAs" text="Save As..." />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Print" />
+            <MenuItem mnemonicParsing="false" onAction="#onPrint" text="Print" />
             <MenuItem fx:id="exitFile" mnemonicParsing="false" onAction="#onExit" text="Exit" />
           </items>
         </Menu>
