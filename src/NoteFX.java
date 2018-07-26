@@ -29,7 +29,9 @@ public class NoteFX extends Application {
         stage.setScene(scene);
         stage.show();
         
-        stage.setOnCloseRequest(e -> exit.fire());
+        stage.setOnCloseRequest(e -> {
+                exit.fire();
+                e.consume();});
     }
 
     /**
