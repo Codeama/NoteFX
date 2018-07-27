@@ -43,13 +43,13 @@ public class NoteFXController {
     }
    
     @FXML
-    public void open(){fileMenu.readSelectedFile(textArea);}
+    public void open(){fileMenu.displayFileContent(textArea);}
      
     @FXML
     public void save(){fileMenu.saveContent(textArea);}
                 
     @FXML
-    public void saveAs(){fileMenu.saveAsNewFile(textArea);}
+    public void saveAsNew(){fileMenu.saveAsNewFile(textArea);}
     
        
     @FXML public void exit(){
