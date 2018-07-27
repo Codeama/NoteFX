@@ -17,7 +17,7 @@ import javafx.scene.control.*;
  */
 public class NoteFXController {
     
-    @FXML private MenuBar menu;
+    @FXML private MenuBar menu; 
     
     @FXML private Menu file;
     
