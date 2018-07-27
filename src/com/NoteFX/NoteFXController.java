@@ -7,8 +7,6 @@ package com.NoteFX;
  */
 
 
-import com.NoteFX.FileMenu;
-import java.awt.event.KeyEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
