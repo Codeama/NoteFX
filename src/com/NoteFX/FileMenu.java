@@ -27,8 +27,8 @@ public class FileMenu {
     
       //display file content on output area
    public void displayFileContent(TextInputControl output){
-        FileLocation location = new FileLocation();
-        File file = location.openDirectory();
+        FileOutput directory = new FileOutput();
+        File file = directory.openDirectory();
             if(file != null){
                 output.setText(readFile(file));
                 updateStageTitle(file, output);
@@ -58,8 +58,8 @@ public class FileMenu {
            saveFile(file, content);
        }
        else{
-            FileDestination destination = new FileDestination();
-            File file = destination.openDirectory();
+            FileInput directory = new FileInput();
+            File file = directory.openDirectory();
             if(file != null){
                 saveFile(file, content);
                 updateStageTitle(file, content);
@@ -69,8 +69,8 @@ public class FileMenu {
     }
         //save text as new file
    public void saveAsNewFile(TextInputControl content){
-       FileDestination destination = new FileDestination();
-       File file = destination.openDirectory();   
+       FileInput directory = new FileInput();
+       File file = directory.openDirectory();   
         if(file != null){
             saveFile(file, content);
             updateStageTitle(file, content);
@@ -125,8 +125,8 @@ public class FileMenu {
             closeWindow();
         }
         else{
-            FileDestination destination = new FileDestination();
-            File file = destination.openDirectory();
+            FileInput directory = new FileInput();
+            File file = directory.openDirectory();
             if(file != null){
                 saveFile(file, text);
                 closeWindow();

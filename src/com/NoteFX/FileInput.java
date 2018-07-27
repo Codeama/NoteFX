@@ -11,9 +11,9 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Bookie
+ * @author Bukola
  */
-public class FileDestination implements SystemDirectory {
+public class FileInput implements SystemDirectory {
     
     @Override
     public File openDirectory(){
