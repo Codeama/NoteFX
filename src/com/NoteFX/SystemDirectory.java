@@ -10,6 +10,6 @@ import javafx.stage.Stage;
  */
 public interface SystemDirectory {
     
-    public abstract File openDirectory();
+    public File openDirectory();
     
 }
