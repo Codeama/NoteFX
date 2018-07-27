@@ -30,15 +30,10 @@ public class FileMenu {
     private String pathName = null;
     private String fileName = "Untitled";
     
-      //call SystemDirectory.selectFile()
-   public void readSelectedFile(TextInputControl output){
-       FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Open File");
-            fileChooser.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
-            File file = fileChooser.showOpenDialog(new Stage());
-            
+      //call FileLocation.openDirectory()
+   public void displayFileContent(TextInputControl output){
+        FileLocation location = new FileLocation();
+        File file = location.openDirectory();
             if(file != null){
                 output.setText(readFile(file));
                 changeStageTitle(file, output);
@@ -70,7 +65,8 @@ public class FileMenu {
            saveFile(file, content);
        }
        else{
-            File file = openDirectory();
+            FileDestination destination = new FileDestination();
+            File file = destination.openDirectory();
             if(file != null){
                 saveFile(file, content);
                 changeStageTitle(file, content);
@@ -80,7 +76,8 @@ public class FileMenu {
     }
    
    public void saveAsNewFile(TextInputControl content){
-       File file = openDirectory();   
+       FileDestination destination = new FileDestination();
+       File file = destination.openDirectory();   
         if(file != null){
             saveFile(file, content);
             changeStageTitle(file, content);
@@ -88,21 +85,7 @@ public class FileMenu {
         }
    }
    
-   private File openDirectory(){
-       FileChooser fileChooser = new FileChooser();
-            fileChooser.setTitle("Save File");
-
-            fileChooser.setSelectedExtensionFilter(
-                new FileChooser.ExtensionFilter("All Files", "*.txt", "*.*"));
-            fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Text Files", "*.txt"), 
-                    new FileChooser.ExtensionFilter("All Files", "*.*"));
-        File file = fileChooser.showSaveDialog(new Stage());
-        
-        return file;
-   }
-   
-      
+       
     private void saveFile(File file, TextInputControl text){
 
         String content = text.getText();
@@ -125,7 +108,7 @@ public class FileMenu {
     public void showConfirmation(TextInputControl text){
         ButtonType save = new ButtonType("Save");
         ButtonType dontSave = new ButtonType("Don't Save");
-        ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        ButtonType cancel = new ButtonType("Cancel");
         String messageAlert = "Do you want to save changes to ";
         String message = messageAlert + "'"+fileName+"'";
         Alert alert = new Alert(AlertType.CONFIRMATION, message,
@@ -140,7 +123,8 @@ public class FileMenu {
                     closeWindow();
                     }
                  else{
-                    File file = openDirectory();
+                    FileDestination destination = new FileDestination();
+                    File file = destination.openDirectory();
                     if(file != null){
                         saveFile(file, text);
                         closeWindow();
@@ -157,22 +141,7 @@ public class FileMenu {
         }   );
     }
     
-    public void showDialog(TextInputControl output){
-        ButtonType save = new ButtonType("Save");
-        ButtonType dontSave = new ButtonType("Don't Save");
-        ButtonType cancel = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
-        String messageAlert = "Do you want to save changes to ";
-        String message = messageAlert + "'"+fileName+"'";
-        Alert alert = new Alert(AlertType.CONFIRMATION, message,
-            save, dontSave, cancel);
-        alert.setHeaderText(null);
-        alert.setTitle("Notepad");
-        Optional<ButtonType> result = alert.showAndWait();
-        if(result.isPresent() && result.get()==ButtonType.CANCEL){
-            alert.close();
-        }
-    }
-    
+      
     public void printText(TextInputControl text){
         PrinterJob job = PrinterJob.createPrinterJob();
         if(job != null){
