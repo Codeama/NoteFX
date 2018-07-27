@@ -7,17 +7,12 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Optional;
 import javafx.application.Platform;
 import javafx.print.PrinterJob;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputControl;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 
@@ -30,13 +25,13 @@ public class FileMenu {
     private String pathName = null;
     private String fileName = "Untitled";
     
-      //call FileLocation.openDirectory()
+      //display file content on output area
    public void displayFileContent(TextInputControl output){
         FileLocation location = new FileLocation();
         File file = location.openDirectory();
             if(file != null){
                 output.setText(readFile(file));
-                changeStageTitle(file, output);
+                updateStageTitle(file, output);
                 pathName = file.getAbsolutePath();
           }
    }
@@ -47,18 +42,16 @@ public class FileMenu {
             FileInputStream input = new FileInputStream(file);
             BufferedReader inputStream = new BufferedReader(new InputStreamReader(input));){
             String line;
-            
             while((line = inputStream.readLine()) != null){
                     str.append(line).append("\n");
             }
-            
         } catch (IOException ex) {
             ex.getMessage();
         }
         return str.toString();
         
     }
-   
+        //save text as file
    public void saveContent(TextInputControl content){
        if(pathName != null){
            File file = new File(pathName);
@@ -69,36 +62,35 @@ public class FileMenu {
             File file = destination.openDirectory();
             if(file != null){
                 saveFile(file, content);
-                changeStageTitle(file, content);
+                updateStageTitle(file, content);
                 pathName = file.getAbsolutePath();
             }
          }
     }
-   
+        //save text as new file
    public void saveAsNewFile(TextInputControl content){
        FileDestination destination = new FileDestination();
        File file = destination.openDirectory();   
         if(file != null){
             saveFile(file, content);
-            changeStageTitle(file, content);
+            updateStageTitle(file, content);
             pathName = file.getAbsolutePath();
         }
    }
    
        
     private void saveFile(File file, TextInputControl text){
-
         String content = text.getText();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
         }
-
         catch(IOException ex){
             ex.getMessage();
         }
     }
     
-    private void changeStageTitle(File file, TextInputControl currentTextArea){
+        //update stage title with file name
+    private void updateStageTitle(File file, TextInputControl currentTextArea){
         Stage primaryStage = (Stage)currentTextArea.getScene().getWindow();
         fileName = file.getName();
         String title = fileName + " - NoteFX";
@@ -117,28 +109,30 @@ public class FileMenu {
         alert.setTitle("Notepad");
         alert.showAndWait().ifPresent(response -> {
             if(response == save){
-                 if(pathName != null){
-                    File file = new File(pathName);
-                    saveFile(file, text); //save and close owner window/stage
-                    closeWindow();
-                    }
-                 else{
-                    FileDestination destination = new FileDestination();
-                    File file = destination.openDirectory();
-                    if(file != null){
-                        saveFile(file, text);
-                        closeWindow();
-                        }
-                    else alert.close();//go back to owner window
-                    }
+                saveAndClose(pathName, text, alert);
             }
             if(response == dontSave)
                 closeWindow();
             if (response == cancel)
-                System.out.println("Can't close me!"); //this closes owner window but it's not the intended outcome. method showConfirmation may need re-doing
-                
-                
-        }   );
+                alert.close();
+            } );
+    }
+    
+    private void saveAndClose(String path, TextInputControl text, Alert window){
+        if(path != null){
+            File file = new File(path);
+            saveFile(file, text); //save and close owner window/stage
+            closeWindow();
+        }
+        else{
+            FileDestination destination = new FileDestination();
+            File file = destination.openDirectory();
+            if(file != null){
+                saveFile(file, text);
+                closeWindow();
+                }
+            else window.close();//go back to owner window
+        }
     }
     
       
