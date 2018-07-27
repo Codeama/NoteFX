@@ -20,11 +20,6 @@ import javafx.scene.control.TextInputControl;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -35,7 +30,7 @@ public class FileMenu {
     private String pathName = null;
     private String fileName = "Untitled";
     
-      
+      //call SystemDirectory.selectFile()
    public void readSelectedFile(TextInputControl output){
        FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Open File");
