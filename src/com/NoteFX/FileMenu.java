@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import javafx.application.Platform;
-import javafx.print.PrinterJob;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
@@ -136,15 +135,6 @@ public class FileMenu {
     }
     
       
-    public void printText(TextInputControl text){
-        PrinterJob job = PrinterJob.createPrinterJob();
-        if(job != null){
-            boolean success = job.printPage(text);
-            if(success){
-                job.endJob();
-            }
-        }
-    }
     
     
    public void closeWindow(){
