@@ -18,19 +18,10 @@ import javafx.scene.control.*;
  */
 public class NoteFXController {
     
-    @FXML private MenuBar menu; 
-    
-    @FXML private Menu file;
-    
-    @FXML private MenuItem exitFile;
-    
+       
     @FXML private TextArea textArea;
-    
-    @FXML private MenuItem open;
-    
-    @FXML private MenuItem save;
-    
     FileMenu fileMenu = new FileMenu();
+    PrintTask printer = new PrintTask();
     
     boolean textEdited;
     
@@ -57,7 +48,7 @@ public class NoteFXController {
             fileMenu.closeWindow();
     }
     
-    @FXML public void print(){fileMenu.printText(textArea);}
+    @FXML public void print(){printer.printText(textArea);}
     
     
     @FXML
