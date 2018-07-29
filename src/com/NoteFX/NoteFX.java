@@ -7,6 +7,7 @@ package com.NoteFX;
  */
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,6 +33,7 @@ public class NoteFX extends Application {
         stage.show();
         
         stage.setOnCloseRequest(e -> {
+                Platform.setImplicitExit(false);
                 exit.fire();
                 e.consume();});
     }
