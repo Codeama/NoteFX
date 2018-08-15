@@ -8,7 +8,7 @@ import javafx.stage.Stage;
  *
  * @author Bukola Jimoh
  */
-public interface SystemDirectory {
+public interface FileSystem {
     
     public File openDirectory();
     

@@ -26,16 +26,15 @@ public class FileMenu {
     
       //display file content on output area
    public void displayFileContent(TextInputControl output){
-        FileOutput directory = new FileOutput();
+        FileOutputChooser directory = new FileOutputChooser();
         File file = directory.openDirectory();
             if(file != null){
                 output.setText(readFile(file));
                 updateStageTitle(file, output);
-                pathName = file.getAbsolutePath();
-          }
+            }
    }
    
-   private String readFile(File file) {
+   protected String readFile(File file) {
         StringBuilder str = new StringBuilder();
         try (
             FileInputStream input = new FileInputStream(file);
@@ -50,6 +49,8 @@ public class FileMenu {
         return str.toString();
         
     }
+   
+  
         //save text as file
    public void saveContent(TextInputControl content){
        if(pathName != null){
@@ -57,7 +58,7 @@ public class FileMenu {
            saveFile(file, content);
        }
        else{
-            FileInput directory = new FileInput();
+            FileInputChooser directory = new FileInputChooser();
             File file = directory.openDirectory();
             if(file != null){
                 saveFile(file, content);
@@ -68,7 +69,7 @@ public class FileMenu {
     }
         //save text as new file
    public void saveAsNewFile(TextInputControl content){
-       FileInput directory = new FileInput();
+       FileInputChooser directory = new FileInputChooser();
        File file = directory.openDirectory();   
         if(file != null){
             saveFile(file, content);
@@ -78,7 +79,7 @@ public class FileMenu {
    }
    
        
-    private void saveFile(File file, TextInputControl text){
+    protected void saveFile(File file, TextInputControl text){
         String content = text.getText();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
@@ -117,14 +118,14 @@ public class FileMenu {
             } );
     }
     
-    private void saveAndClose(String path, TextInputControl text, Alert window){
+    protected void saveAndClose(String path, TextInputControl text, Alert window){
         if(path != null){
             File file = new File(path);
             saveFile(file, text); //save and close owner window/stage
             closeWindow();
         }
         else{
-            FileInput directory = new FileInput();
+            FileInputChooser directory = new FileInputChooser();
             File file = directory.openDirectory();
             if(file != null){
                 saveFile(file, text);

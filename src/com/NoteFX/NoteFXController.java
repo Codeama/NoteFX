@@ -24,6 +24,7 @@ public class NoteFXController {
        
     @FXML private TextArea textArea;
     @FXML private MenuItem save;
+    @FXML private MenuItem exitFile;
     FileMenu fileMenu = new FileMenu();
     PrintTask printer = new PrintTask();
     
@@ -47,6 +48,7 @@ public class NoteFXController {
     }
     
     @FXML public void exit(){
+        //System.out.println(exitFile.getAccelerator().toString());
         if (textEdited==true) 
             fileMenu.showConfirmation(textArea);
         else
@@ -58,7 +60,7 @@ public class NoteFXController {
     
     @FXML
     public void initialize(){
-        //save.setAccelerator(new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN));
+        
         
         
     }
