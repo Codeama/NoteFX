@@ -11,15 +11,14 @@ import javafx.stage.Stage;
  */
 public class StageTitle {
     
-    String fileName;
-    String pathName;
+    private String fileName;
+    
     
     protected void updateStageTitle(File file, TextInputControl textArea){
         Stage primaryStage = (Stage)textArea.getScene().getWindow();
         fileName = file.getName(); //update file name
         String title = fileName + " - NoteFX";
         primaryStage.setTitle(title);
-        pathName = file.getAbsolutePath();
     }
     
     protected void clearStage(TextInputControl textArea){
@@ -30,6 +29,7 @@ public class StageTitle {
         textArea.clear();
     }
     
+    //see method resetFileAndPathName() in FileIO
     public String getFileName(){
         return fileName;
     }

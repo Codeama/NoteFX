@@ -15,13 +15,14 @@ public class FileIO {
     
     private String pathName = null;
     private String fileName = "Untitled";
-    StageTitle stage = new StageTitle();
-    Exit exit = new Exit();
+    private final StageTitle stage = new StageTitle();
+    private final Exit exit = new Exit();
         /**buttons for save alert**/
-    ButtonType save = new ButtonType("Save");
-    ButtonType dontSave = new ButtonType("Don't Save");
-    ButtonType cancel = new ButtonType("Cancel");
+    private final ButtonType save = new ButtonType("Save");
+    private final ButtonType dontSave = new ButtonType("Don't Save");
+    private final ButtonType cancel = new ButtonType("Cancel");
     
+        /**methods start here*/
     public String getPathName(){
         return pathName;
     }
@@ -48,7 +49,7 @@ public class FileIO {
             }
    }
    //utility method for displayFileContent
-   protected String readFile(File file) {
+   private String readFile(File file) {
         StringBuilder text = new StringBuilder();
         try (
             FileInputStream input = new FileInputStream(file);
@@ -95,7 +96,7 @@ public class FileIO {
    }
    
     //utility method for save methods   
-    protected void saveFile(File file, TextInputControl text){
+    private void saveFile(File file, TextInputControl text){
         String content = text.getText();
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
@@ -149,7 +150,7 @@ public class FileIO {
     }
    
     //utility method for showExitConfirmation()
-    protected void saveAndClose(String path, TextInputControl text, Alert window){
+    private void saveAndClose(String path, TextInputControl text, Alert window){
         if(path != null){
             File file = new File(path);
             saveFile(file, text); //save and close main window/stage
