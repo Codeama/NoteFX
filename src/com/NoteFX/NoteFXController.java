@@ -63,7 +63,7 @@ public class NoteFXController {
     //exit application
     @FXML public void exit(){
         if(isTextEdited()){
-            file.showConfirmation(textArea);
+            file.showExitConfirmation(textArea);
         }
         else{
             exit.closeWindow();
