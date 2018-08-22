@@ -1,15 +1,10 @@
 package com.NoteFX;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -29,7 +24,7 @@ public class NoteFX extends Application {
         
         Scene scene = new Scene(root);
         stage.setTitle("Untitled - NoteFX");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("icon.jpg")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("noteFX_image.png")));
         stage.setScene(scene);
         stage.show();
         
