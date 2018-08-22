@@ -3,9 +3,11 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 
@@ -14,7 +16,7 @@
     <ScrollBar />
   </bottom>
   <center>
-    <TextArea fx:id="textArea" onKeyTyped="#keyPressed" prefWidth="200.0" wrapText="true" />
+    <TextArea fx:id="textArea" onKeyReleased="#registerTextChange" prefWidth="200.0" style="-fx-font-family: Consolas; -fx-font-size: 16px;" wrapText="true" />
   </center>
   <right>
     <ScrollBar orientation="VERTICAL" />
@@ -24,28 +26,25 @@
       <menus>
         <Menu fx:id="file" mnemonicParsing="true" text="_File">
           <items>
-            <MenuItem fx:id="newStage" text="_New">
+            <MenuItem fx:id="newStage" onAction="#newStage" onMenuValidation="#newStage" text="_New">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="N" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
             <MenuItem fx:id="open" onAction="#open" text="_Open...">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="O" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
-            <MenuItem fx:id="save" onAction="#save" text="_Save">
+            <MenuItem fx:id="save" onAction="#save" onMenuValidation="#save" text="_Save">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
-            <MenuItem onAction="#saveAsNew" text="Save _As...">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="UP" shortcut="ANY" />
-                     </accelerator></MenuItem>
+            <MenuItem onAction="#saveAsNew" onMenuValidation="#saveAsNew" text="Save _As..." />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem onAction="#print" text="_Print">
+            <MenuItem onAction="#print" onMenuValidation="#print" text="_Print">
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="P" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="P" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator></MenuItem>
-            <MenuItem fx:id="exitFile" onAction="#exit" text="E_xit" />
+            <MenuItem fx:id="exitFile" onAction="#exit" onMenuValidation="#exit" text="E_xit" />
           </items>
                <accelerator>
                   <KeyCodeCombination alt="UP" code="F" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
@@ -53,29 +52,39 @@
         </Menu>
         <Menu text="_Edit">
           <items>
-            <MenuItem text="Undo">
+            <MenuItem onAction="#undoChange" text="Undo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Find...">
+            <MenuItem disable="true" mnemonicParsing="false" text="Find...">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-            <MenuItem mnemonicParsing="false" text="Find Next">
+            <MenuItem disable="true" mnemonicParsing="false" text="Find Next">
                      <accelerator>
                         <KeyCodeCombination alt="ANY" code="F3" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
-            <MenuItem mnemonicParsing="false" text="Replace" />
-            <MenuItem mnemonicParsing="false" text="Go To..." />
+            <MenuItem disable="true" mnemonicParsing="false" text="Replace" />
+            <MenuItem disable="true" mnemonicParsing="false" text="Go To..." />
           </items>
                <accelerator>
                   <KeyCodeCombination alt="UP" code="E" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                </accelerator>
         </Menu>
+            <Menu mnemonicParsing="false" text="Settings">
+              <items>
+                  <RadioMenuItem mnemonicParsing="false" selected="true" text="Classic view">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="group" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem fx:id="noteFX" mnemonicParsing="false" text="NoteFX" toggleGroup="$group" />
+              </items>
+            </Menu>
         <Menu text="_Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#info" text="About" />
           </items>
                <accelerator>
                   <KeyCodeCombination alt="UP" code="H" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
