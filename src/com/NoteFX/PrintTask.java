@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.NoteFX;
 
 import javafx.print.PrinterJob;
@@ -11,11 +7,11 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author BUKOLA
+ * @author Bukola Jimoh
  */
 public class PrintTask {
     
-    //this method needs refactoring
+    
     public void printText(TextInputControl text){
         PrinterJob job = PrinterJob.createPrinterJob();
         if(job != null){
