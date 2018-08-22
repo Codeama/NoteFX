@@ -17,7 +17,7 @@ public class FileIO {
     private String fileName = "Untitled";
     StageTitle stage = new StageTitle();
     Exit exit = new Exit();
-    /*********buttons for save alert********/
+        /**buttons for save alert**/
     ButtonType save = new ButtonType("Save");
     ButtonType dontSave = new ButtonType("Don't Save");
     ButtonType cancel = new ButtonType("Cancel");
@@ -25,11 +25,7 @@ public class FileIO {
     public String getPathName(){
         return pathName;
     }
-    
-    public void setPathName(String pathName){
-        this.pathName = pathName;
-    }
-    
+   
     public String getFileName(){
         return fileName;
     }
@@ -51,7 +47,7 @@ public class FileIO {
                 pathName = file.getAbsolutePath();
             }
    }
-   
+   //utility method for displayFileContent
    protected String readFile(File file) {
         StringBuilder text = new StringBuilder();
         try (
@@ -69,7 +65,7 @@ public class FileIO {
     }
    
   
-        //saves or updates already existing text file
+   //save text as file
    public void saveContent(TextInputControl content){
        if(pathName != null){
            File file = new File(pathName);
@@ -86,7 +82,7 @@ public class FileIO {
             }
          }
     }
-        //saves text as new file
+        //save text as new file
    public void saveAsNewFile(TextInputControl content){
        FileInputChooser directory = new FileInputChooser();
        File file = directory.openDirectory();   
@@ -98,7 +94,7 @@ public class FileIO {
         }
    }
    
-       
+    //utility method for save methods   
     protected void saveFile(File file, TextInputControl text){
         String content = text.getText();
         try (FileWriter writer = new FileWriter(file)) {
@@ -108,7 +104,7 @@ public class FileIO {
             ex.getMessage();
         }
     }
-    
+    //alert for save before new page displayed
     public void showSaveConfirmation(TextInputControl text){
         String messageAlert = "Do you want to save changes to " + "'"+fileName+"'";
         Alert alert = new Alert(AlertType.CONFIRMATION, messageAlert,
@@ -129,13 +125,14 @@ public class FileIO {
                 alert.close();
             } );
     }
-    
+     
     protected void resetFileAndPathName(){
         pathName = null;
         fileName = stage.getFileName();
     }
     
-    public void showConfirmation(TextInputControl text){
+    //alert for save before exit
+    public void showExitConfirmation(TextInputControl text){
         String messageAlert = "Do you want to save changes to " + "'"+fileName+"'";
         Alert alert = new Alert(AlertType.CONFIRMATION, messageAlert,
             save, dontSave, cancel);
@@ -151,7 +148,7 @@ public class FileIO {
             } );
     }
    
-    
+    //utility method for showExitConfirmation()
     protected void saveAndClose(String path, TextInputControl text, Alert window){
         if(path != null){
             File file = new File(path);
