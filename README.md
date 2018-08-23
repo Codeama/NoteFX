@@ -1,5 +1,5 @@
 # NoteFX
-NoteFX is a css backed JavaFX notepad with basic functionality.
+NoteFX is a css backed JavaFX notepad with basic functions.
 ## Features
 - Two themes: Classic and NoteFX
 - Shortcut keys
