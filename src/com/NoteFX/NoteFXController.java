@@ -8,8 +8,8 @@ import javafx.scene.control.*;
  * @author Bukola Jimoh
  */
 public class NoteFXController {
-    
-       
+
+
     @FXML private TextArea textArea;
     @FXML private RadioMenuItem noteFX;
     @FXML private ToggleGroup group;
@@ -20,34 +20,34 @@ public class NoteFXController {
     /**text change variables**/
     private int textLength;
     private int changeCount;
-   
-    
-    
-    
+
+
+
+
    /***methods begin here***/
-    
+
     //open file
     @FXML
     public void open(){
-        file.displayFileContent(textArea); 
-        textLength = textArea.getLength(); 
+        file.displayFileContent(textArea);
+        textLength = textArea.getLength();
     }
-    
+
     //save as file
     @FXML
     public void save(){
-        textLength = textArea.getLength(); 
+        textLength = textArea.getLength();
         file.saveContent(textArea);
-    } 
-    //save as new file            
+    }
+    //save as new file
     @FXML
     public void saveAsNew(){
-        textLength = textArea.getLength();  
+        textLength = textArea.getLength();
         file.saveAsNewFile(textArea);
     }
     //register change(s) to text
     @FXML
-    public void registerTextChange(){ 
+    public void registerTextChange(){
         int text = textArea.getLength();
         if(textLength != text)
            changeCount++;
@@ -55,7 +55,7 @@ public class NoteFXController {
     //check if text is edited
     private boolean isTextEdited(){
         int newLength = textArea.getLength();
-        
+
         return  (newLength != 0 && file.getPathName() == null) |
                 (newLength != textLength && file.getPathName() != null) &&
                 (changeCount > 0);
@@ -72,7 +72,7 @@ public class NoteFXController {
     //print text area
     @FXML public void print(){
         printer.printText(textArea);}
-    
+
     //create new text area
     @FXML
     public void newStage(){
@@ -81,19 +81,19 @@ public class NoteFXController {
         else{
             stage.clearStage(textArea);}
             textLength = textArea.getLength();
-            file.resetFileAndPathName(); 
+            file.resetFileAndPathName();
     }
-   
+
     //undo change(s)
     @FXML public void undoChange(){
         textArea.undo();
     }
-    
+
     //about NoteFX
     @FXML public void info(){
         AboutNoteFX.aboutMe();
     }
-    
+
     //theme change
     public void initialize(){
         group.selectedToggleProperty().addListener(
@@ -107,8 +107,8 @@ public class NoteFXController {
                     textArea.setStyle("-fx-control-inner-background:#FFFFFF; "
                + "-fx-font-family: Consolas; -fx-font-size: 16px; "
                + "-fx-text-fill: #000000; ");
-        
+
     });
     }
-     
+
 }
