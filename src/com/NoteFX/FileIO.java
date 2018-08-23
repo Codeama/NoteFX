@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.*;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.StageStyle;
 
 
 /**
@@ -112,6 +113,7 @@ public class FileIO {
             save, dontSave, cancel);
         alert.setHeaderText(null);
         alert.setTitle("NoteFX");
+        alert.initStyle(StageStyle.UTILITY);
         alert.showAndWait().ifPresent(response -> {
             if(response == save){
                 saveContent(text);
@@ -139,6 +141,7 @@ public class FileIO {
             save, dontSave, cancel);
         alert.setHeaderText(null);
         alert.setTitle("NoteFX");
+        alert.initStyle(StageStyle.UTILITY);
         alert.showAndWait().ifPresent(response -> {
             if(response == save)
                 saveAndClose(pathName, text, alert);
