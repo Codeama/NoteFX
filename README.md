@@ -8,7 +8,7 @@ NoteFX is a css backed JavaFX notepad with basic functions.
 - Print function
 ## Platform/requirements
 - Compiled with jdk 1.8.0_181
-- Requires the Java Runtime Environment to run. Download the JRE™ [here](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+- Requires the Java Runtime Environment (JRE™) to run
 ## Known issues
 Shortcut key combinations (for example Ctrl+S for save) work fine. However when a menu shows, single character key strokes do not seem to fire events on Windows
 ## Screenshots
