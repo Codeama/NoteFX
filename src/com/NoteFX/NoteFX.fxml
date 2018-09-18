@@ -16,7 +16,7 @@
     <ScrollBar />
   </bottom>
   <center>
-    <TextArea fx:id="textArea" onKeyReleased="#registerTextChange" prefWidth="200.0" style="-fx-font-family: Consolas; -fx-font-size: 16px;" wrapText="true" />
+    <TextArea fx:id="textArea" onKeyTyped="#registerTextChange" prefWidth="200.0" style="-fx-font-family: Consolas; -fx-font-size: 16px;" wrapText="true" />
   </center>
   <right>
     <ScrollBar orientation="VERTICAL" />
