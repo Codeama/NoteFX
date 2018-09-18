@@ -18,7 +18,6 @@ public class NoteFXController {
     private final Exit exit = new Exit();
     private final StageTitle stage = new StageTitle();
     /**text change variables**/
-    private int textLength;
     private int changeCount;
 
 
@@ -26,41 +25,46 @@ public class NoteFXController {
 
    /***methods begin here***/
 
-    //open file
+    //opens file
     @FXML
     public void open(){
         file.displayFileContent(textArea);
-        textLength = textArea.getLength();
+        changeCount = 0;
     }
 
-    //save as file
+    //saves as file
     @FXML
     public void save(){
-        textLength = textArea.getLength();
         file.saveContent(textArea);
+        changeCount = 0; //resets to nullify shortcut key strokes/combination
     }
-    //save as new file
+    
+    //saves as new file
     @FXML
     public void saveAsNew(){
-        textLength = textArea.getLength();
         file.saveAsNewFile(textArea);
+        changeCount = 0;
     }
-    //register change(s) to text
+    
+    //registers change(s) to text
     @FXML
     public void registerTextChange(){
-        int text = textArea.getLength();
-        if(textLength != text)
-           changeCount++;
-    }
-    //check if text is edited
+          changeCount++;
+     }
+    
+    /*
+     ******checks if text is edited*****
+     *condition 1 checks text area is not empty and file is not saved
+     *condition 2 checks changes to existing/saved file
+    */
     private boolean isTextEdited(){
         int newLength = textArea.getLength();
 
-        return  (newLength != 0 && file.getPathName() == null) |
-                (newLength != textLength && file.getPathName() != null) &&
-                (changeCount > 0);
+        return  (newLength > 0 && file.getPathName() == null) |   //condition 1
+                (changeCount > 0 && file.getPathName() != null);  //condition 2
     }
-    //exit application
+    
+    //exits application
     @FXML public void exit(){
         if(isTextEdited()){
             file.showExitConfirmation(textArea);
@@ -69,18 +73,19 @@ public class NoteFXController {
             exit.closeWindow();
         }
     }
-    //print text area
+    
+    //prints text area
     @FXML public void print(){
         printer.printText(textArea);}
 
-    //create new text area
+    //creates new text area
     @FXML
     public void newStage(){
         if(isTextEdited())
             file.showSaveConfirmation(textArea);
         else{
-            stage.clearStage(textArea);}
-            textLength = textArea.getLength();
+            stage.clearStage(textArea);
+        }
             file.resetFileAndPathName();
     }
 
