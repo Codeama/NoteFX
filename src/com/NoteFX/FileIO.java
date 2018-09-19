@@ -24,21 +24,13 @@ public class FileIO {
     private final ButtonType cancel = new ButtonType("Cancel");
     
         /**methods start here*/
+    
+    //see method isTextEdited in NoteFXController 
     public String getPathName(){
         return pathName;
     }
-   
-    public String getFileName(){
-        return fileName;
-    }
-    
-    public void setFileName(String fileName){
-        if(fileName == null)
-            throw new IllegalArgumentException("File name cannot be null.");
-        this.fileName = fileName;
-    }
-    
-      //display file content on output area
+
+    //display file content on output area
    public void displayFileContent(TextInputControl output){
         FileOutputChooser directory = new FileOutputChooser();
         File file = directory.openDirectory();
@@ -49,6 +41,7 @@ public class FileIO {
                 pathName = file.getAbsolutePath();
             }
    }
+   
    //utility method for displayFileContent
    private String readFile(File file) {
         StringBuilder text = new StringBuilder();
@@ -131,7 +124,8 @@ public class FileIO {
      
     protected void resetFileAndPathName(){
         pathName = null;
-        fileName = stage.getFileName();
+        fileName = "Untitled";
+        
     }
     
     //alert for save before exit
