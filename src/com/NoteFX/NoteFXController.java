@@ -18,7 +18,7 @@ public class NoteFXController {
     private final Exit exit = new Exit();
     private final StageTitle stage = new StageTitle();
     /**text change variables**/
-    private int changeCount;
+    private boolean textChange;
 
 
 
@@ -29,27 +29,27 @@ public class NoteFXController {
     @FXML
     public void open(){
         file.displayFileContent(textArea);
-        changeCount = 0;
+        textChange = false;
     }
 
     //saves as file
     @FXML
     public void save(){
         file.saveContent(textArea);
-        changeCount = 0; //resets to nullify shortcut key strokes/combination
+        textChange = false; //resets to nullify shortcut key strokes/combination
     }
     
     //saves as new file
     @FXML
     public void saveAsNew(){
         file.saveAsNewFile(textArea);
-        changeCount = 0;
+        textChange = false;
     }
     
     //registers change(s) to text
     @FXML
     public void registerTextChange(){
-          changeCount++;
+          textChange = true;
      }
     
     /*
@@ -61,7 +61,7 @@ public class NoteFXController {
         int newLength = textArea.getLength();
 
         return  (newLength > 0 && file.getPathName() == null) |   //condition 1
-                (changeCount > 0 && file.getPathName() != null);  //condition 2
+                (textChange && file.getPathName() != null);  //condition 2
     }
     
     //exits application
