@@ -28,10 +28,5 @@ public class StageTitle {
         primaryStage.setTitle(title);
         textArea.clear();
     }
-    
-    //see method resetFileAndPathName() in FileIO
-    public String getFileName(){
-        return fileName;
-    }
 
 }
