@@ -85,8 +85,8 @@ public class NoteFXController {
             file.showSaveConfirmation(textArea);
         else{
             stage.clearStage(textArea);
-        }
             file.resetFileAndPathName();
+        }
     }
 
     //undo change(s)
