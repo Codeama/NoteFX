@@ -47,13 +47,14 @@ public class FileIO {
         StringBuilder text = new StringBuilder();
         try (
             FileInputStream input = new FileInputStream(file);
-            BufferedReader inputStream = new BufferedReader(new InputStreamReader(input));){
+            BufferedReader inputStream = new BufferedReader(new InputStreamReader(input));
+            ){
             String line;
             while((line = inputStream.readLine()) != null){
                     text.append(line).append("\n");
             }
         } catch (IOException ex) {
-            ex.getMessage();
+            Error.message("Error opening file.");
         }
         return text.toString();
         
@@ -96,7 +97,7 @@ public class FileIO {
             writer.write(content);
         }
         catch(IOException ex){
-            ex.getMessage();
+            Error.message("Oops! Something went wrong. Please try again.");
         }
     }
     //alert for save before new page displayed
