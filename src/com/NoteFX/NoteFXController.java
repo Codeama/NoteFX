@@ -13,11 +13,13 @@ public class NoteFXController {
     @FXML private TextArea textArea;
     @FXML private RadioMenuItem noteFX;
     @FXML private ToggleGroup group;
-    private final FileIO file = new FileIO();
+    private final FileIO file = FileIO.getInstance();
     private final PrintTask printer = new PrintTask();
     private final Exit exit = new Exit();
     private final StageTitle stage = new StageTitle();
-    /**text change variables**/
+    private final AlertBox alert = new AlertBox();
+    /*textChange variable changes value to monitor changes as well as 
+      cancel shortcut keys/combinations that are registered as changes*/
     private boolean textChange;
 
 
@@ -28,15 +30,20 @@ public class NoteFXController {
     //opens file
     @FXML
     public void open(){
-        file.displayFileContent(textArea);
-        textChange = false;
+        if(isTextEdited()){
+            textChange = alert.isTextChanged();
+            alert.showSaveDialogBeforeOpenFile(textArea, textChange);
+        }
+        else{
+            file.displayFileContent(textArea);
+        }
     }
 
     //saves as file
     @FXML
     public void save(){
         file.saveContent(textArea);
-        textChange = false; //resets to nullify shortcut key strokes/combination
+        textChange = false;
     }
     
     //saves as new file
@@ -50,24 +57,25 @@ public class NoteFXController {
     @FXML
     public void registerTextChange(){
           textChange = true;
+          System.out.println(textChange);
      }
     
     /*
      ******checks if text is edited*****
-     *condition 1 checks text area is not empty and file is not saved
-     *condition 2 checks changes to existing/saved file
+      condition 1 checks text area is not empty and file is not saved
+      condition 2 checks changes to existing/saved file
     */
     private boolean isTextEdited(){
-        int newLength = textArea.getLength();
+        int textLength = textArea.getLength();
 
-        return  (newLength > 0 && file.getPathName() == null) |   //condition 1
+        return  (textLength > 0 && file.getPathName() == null) |   //condition 1
                 (textChange && file.getPathName() != null);  //condition 2
     }
     
     //exits application
     @FXML public void exit(){
         if(isTextEdited()){
-            file.showExitConfirmation(textArea);
+            alert.showSaveBeforeExit(textArea);
         }
         else{
             exit.closeWindow();
@@ -82,7 +90,7 @@ public class NoteFXController {
     @FXML
     public void newStage(){
         if(isTextEdited())
-            file.showSaveConfirmation(textArea);
+            alert.showSaveBeforeNewPage(textArea);
         else{
             stage.clearStage(textArea);
             file.resetFileAndPathName();
