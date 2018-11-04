@@ -1,7 +1,11 @@
 package com.NoteFX;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 
 /**
  *
@@ -9,7 +13,7 @@ import javafx.scene.control.*;
  */
 public class NoteFXController {
 
-
+    @FXML MenuItem save;
     @FXML private TextArea textArea;
     @FXML private RadioMenuItem noteFX;
     @FXML private ToggleGroup group;
@@ -53,11 +57,15 @@ public class NoteFXController {
         textChange = false;
     }
     
-    //registers change(s) to text
+    //registers change(s) to text excluding shortcut keys
     @FXML
-    public void registerTextChange(){
+    public void registerTextChange(KeyEvent keyEvent){
+        if(!(keyEvent.getCode()== KeyCode.CONTROL 
+                | keyEvent.getCode()==KeyCode.O
+                | keyEvent.getCode()==KeyCode.S
+                | keyEvent.getCode()==KeyCode.N
+                | keyEvent.getCode()==KeyCode.P))
           textChange = true;
-          System.out.println(textChange);
      }
     
     /*
@@ -70,6 +78,7 @@ public class NoteFXController {
 
         return  (textLength > 0 && file.getPathName() == null) |   //condition 1
                 (textChange && file.getPathName() != null);  //condition 2
+                
     }
     
     //exits application
@@ -98,7 +107,7 @@ public class NoteFXController {
     }
 
     //undo change(s)
-    @FXML public void undoChange(){
+    @FXML public void undoChange(ActionEvent event){
         textArea.undo();
     }
 
@@ -122,6 +131,7 @@ public class NoteFXController {
                + "-fx-text-fill: #000000; ");
 
     });
-    }
+        
+     }
 
 }
