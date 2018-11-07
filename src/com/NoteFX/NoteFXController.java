@@ -1,7 +1,11 @@
 package com.NoteFX;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 
 /**
  *
@@ -9,15 +13,17 @@ import javafx.scene.control.*;
  */
 public class NoteFXController {
 
-
+    @FXML MenuItem save;
     @FXML private TextArea textArea;
     @FXML private RadioMenuItem noteFX;
     @FXML private ToggleGroup group;
-    private final FileIO file = new FileIO();
+    private final FileIO file = FileIO.getInstance();
     private final PrintTask printer = new PrintTask();
     private final Exit exit = new Exit();
     private final StageTitle stage = new StageTitle();
-    /**text change variables**/
+    private final AlertBox alert = new AlertBox();
+    /*textChange variable changes value to monitor changes as well as 
+      cancel shortcut keys/combinations that are registered as changes*/
     private boolean textChange;
 
 
@@ -28,7 +34,13 @@ public class NoteFXController {
     //opens file
     @FXML
     public void open(){
-        file.displayFileContent(textArea);
+        if(isTextEdited()){
+            //textChange = alert.isTextChanged();
+            alert.showSaveDialogBeforeOpenFile(textArea);//, textChange);
+        }
+        else{
+            file.displayFileContent(textArea);
+        }
         textChange = false;
     }
 
@@ -36,7 +48,7 @@ public class NoteFXController {
     @FXML
     public void save(){
         file.saveContent(textArea);
-        textChange = false; //resets to nullify shortcut key strokes/combination
+        textChange = false;
     }
     
     //saves as new file
@@ -46,28 +58,39 @@ public class NoteFXController {
         textChange = false;
     }
     
-    //registers change(s) to text
+    //registers change(s) to text excluding shortcut keys
     @FXML
-    public void registerTextChange(){
+    public void registerTextChange(KeyEvent keyEvent){
+//        int textLength = textArea.getLength();
+//        if(textLength > 0 & file.getPathName() == null)
+//            textChange = true;
+//        System.out.println(textChange);
+
+        if(!(keyEvent.getCode()== KeyCode.CONTROL 
+                | keyEvent.getCode()==KeyCode.O
+                | keyEvent.getCode()==KeyCode.S
+                | keyEvent.getCode()==KeyCode.N
+                | keyEvent.getCode()==KeyCode.P))
           textChange = true;
      }
     
     /*
      ******checks if text is edited*****
-     *condition 1 checks text area is not empty and file is not saved
-     *condition 2 checks changes to existing/saved file
+      condition 1 checks text area is not empty and file is not saved
+      condition 2 checks changes to existing/saved file
     */
     private boolean isTextEdited(){
-        int newLength = textArea.getLength();
+        int textLength = textArea.getLength();
 
-        return  (newLength > 0 && file.getPathName() == null) |   //condition 1
+        return  (textLength > 0 && file.getPathName() == null) |   //condition 1
                 (textChange && file.getPathName() != null);  //condition 2
+                
     }
     
     //exits application
     @FXML public void exit(){
         if(isTextEdited()){
-            file.showExitConfirmation(textArea);
+            alert.showSaveBeforeExit(textArea);
         }
         else{
             exit.closeWindow();
@@ -82,7 +105,7 @@ public class NoteFXController {
     @FXML
     public void newStage(){
         if(isTextEdited())
-            file.showSaveConfirmation(textArea);
+            alert.showSaveBeforeNewPage(textArea);
         else{
             stage.clearStage(textArea);
             file.resetFileAndPathName();
@@ -90,7 +113,7 @@ public class NoteFXController {
     }
 
     //undo change(s)
-    @FXML public void undoChange(){
+    @FXML public void undoChange(ActionEvent event){
         textArea.undo();
     }
 
@@ -114,6 +137,7 @@ public class NoteFXController {
                + "-fx-text-fill: #000000; ");
 
     });
-    }
+        
+     }
 
 }
