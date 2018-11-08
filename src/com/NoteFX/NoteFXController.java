@@ -35,8 +35,7 @@ public class NoteFXController {
     @FXML
     public void open(){
         if(isTextEdited()){
-            //textChange = alert.isTextChanged();
-            alert.showSaveDialogBeforeOpenFile(textArea);//, textChange);
+            alert.showSaveDialogBeforeOpenFile(textArea);
         }
         else{
             file.displayFileContent(textArea);
@@ -61,11 +60,6 @@ public class NoteFXController {
     //registers change(s) to text excluding shortcut keys
     @FXML
     public void registerTextChange(KeyEvent keyEvent){
-//        int textLength = textArea.getLength();
-//        if(textLength > 0 & file.getPathName() == null)
-//            textChange = true;
-//        System.out.println(textChange);
-
         if(!(keyEvent.getCode()== KeyCode.CONTROL 
                 | keyEvent.getCode()==KeyCode.O
                 | keyEvent.getCode()==KeyCode.S
