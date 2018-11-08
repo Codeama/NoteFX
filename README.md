@@ -10,7 +10,7 @@ NoteFX is a css backed JavaFX notepad with basic functions.
 - Compiled with jdk 1.8.0_181
 - Requires the Java Runtime Environment (JRE™) to run
 ## Known issues
-Keyboard shortcuts are being picked up as KeyEvents in TextArea, which shouldn't be. To be revisited.
+N\A
 ## Screenshots
 ![menu_showing](https://user-images.githubusercontent.com/31381732/44549697-cbcc8780-a719-11e8-9fd1-af16c8369326.png)
 ![screenshot 15](https://user-images.githubusercontent.com/31381732/44549631-9a53bc00-a719-11e8-9bf9-2b9bdb409c2c.png)
