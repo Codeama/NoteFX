@@ -25,7 +25,6 @@ public class AlertBox {
     private final ButtonType dontSave;
     private final ButtonType cancel;
     private final FileIOChooser directory;
-    private boolean textChanged;
     
 
     
@@ -37,13 +36,8 @@ public class AlertBox {
         this.cancel = new ButtonType("Cancel");
         this.dontSave = new ButtonType("Don't Save");
         this.save = new ButtonType("Save");
-        textChanged = false;
     }
     
-    //see open() in NoteFXController
-    public boolean isTextChanged(){
-        return textChanged;
-    }
     
     private void setAlertProperties(){
         String messageAlert = "Do you want to save changes to " + "'"+fileIO.getFileName()+"'";
@@ -118,13 +112,11 @@ public class AlertBox {
         }
         
         //alert save before opening new file
-    public void showSaveDialogBeforeOpenFile(TextInputControl text, boolean change){
+    public void showSaveDialogBeforeOpenFile(TextInputControl text){
         setAlertProperties();
         Optional<ButtonType> result = alert.showAndWait();
         if(result.isPresent() && result.get() == save){
-            change = textChanged;
             saveBeforeOpenFile(fileIO.getPathName(), text);
-            //change = true;
         }
         if(result.isPresent() && result.get() == dontSave)
             fileIO.displayFileContent(text);
