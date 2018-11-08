@@ -13,20 +13,17 @@
 
 <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.NoteFX.NoteFXController">
   <bottom>
-    <ScrollBar />
+    <ScrollBar fx:id="hScroll" />
   </bottom>
   <center>
-    <TextArea fx:id="textArea" onKeyTyped="#registerTextChange" prefWidth="200.0" style="-fx-font-family: Consolas; -fx-font-size: 16px;" wrapText="true" />
+    <TextArea fx:id="textArea" onKeyPressed="#registerTextChange" prefWidth="200.0" style="-fx-font-family: Consolas; -fx-font-size: 16px;" wrapText="true" />
   </center>
-  <right>
-    <ScrollBar orientation="VERTICAL" />
-  </right>
   <top>
     <MenuBar fx:id="menu">
       <menus>
         <Menu fx:id="file" mnemonicParsing="true" text="_File">
           <items>
-            <MenuItem fx:id="newStage" onAction="#newStage" onMenuValidation="#newStage" text="_New">
+            <MenuItem fx:id="newStage" onAction="#newStage" text="_New">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
@@ -36,19 +33,19 @@
                         <KeyCodeCombination alt="UP" code="O" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
-            <MenuItem fx:id="save" onAction="#save" onMenuValidation="#save" text="_Save">
+            <MenuItem fx:id="save" onAction="#save" text="_Save">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
-            <MenuItem onAction="#saveAsNew" onMenuValidation="#saveAsNew" text="Save _As..." />
+            <MenuItem onAction="#saveAsNew" text="Save _As..." />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem onAction="#print" onMenuValidation="#print" text="_Print">
+            <MenuItem onAction="#print" text="_Print">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="P" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
-            <MenuItem fx:id="exitFile" onAction="#exit" onMenuValidation="#exit" text="E_xit" />
+            <MenuItem fx:id="exitFile" onAction="#exit" text="E_xit" />
           </items>
                <accelerator>
                   <KeyCodeCombination alt="UP" code="F" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
