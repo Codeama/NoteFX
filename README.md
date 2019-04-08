@@ -18,6 +18,6 @@ N/A
 ## Download
 Download the executable JAR from [Releases](https://github.com/Codeama/NoteFX/releases)
 
-### Credit
+### Icon Source
 NoteFX icon/image taken from https://commons.wikimedia.org/wiki/File:Notepad_icon.svg
 
