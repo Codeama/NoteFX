@@ -1,5 +1,5 @@
 # NoteFX
-NoteFX is a simple Java text editor with a JavaFX User Interface with basic functions.
+NoteFX is a simple text editor written in Java and JavaFX for the User Interface.
 ## Features
 - Two themes: Classic and NoteFX
 - Shortcut keys
@@ -18,6 +18,6 @@ N/A
 ## Download
 Download the executable JAR from [Releases](https://github.com/Codeama/NoteFX/releases)
 
-### Icon Source
-NoteFX icon/image taken from https://commons.wikimedia.org/wiki/File:Notepad_icon.svg
+### Favicon Source
+NoteFX favicon was taken from https://commons.wikimedia.org/wiki/File:Notepad_icon.svg
 
